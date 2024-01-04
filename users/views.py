@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .forms import UserSignupForm, UserSigninForm
+from .forms import UserSignupForm, UserSigninForm, UserUpdateForm
 from .models import User
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 
 
 # user signup and save user to database
@@ -63,3 +64,32 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
+@login_required(login_url='login')
+def profile_page(request):
+    user_profile = User.objects.get(id=request.user.id)
+    context = {
+        'user_profile': user_profile
+    }
+    return render(request, 'auth/profile_with_data_and_skills.html', context)
+
+
+@login_required(login_url='login')
+def edit_profile(request):
+    user_profile = User.objects.get(id=request.user.id)
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            if request.FILES:
+                User.objects.filter(id=request.user.id).update(image=request.FILES['image'])
+            form.save()
+            print('user updated successfully', form.cleaned_data)
+            return redirect('profile')
+    else:
+        form = UserUpdateForm(instance=user_profile)
+    context = {
+        'form': form,
+        'user_profile': user_profile
+    }
+    return render(request, 'auth/profile_edit_data_and_skills.html', context)

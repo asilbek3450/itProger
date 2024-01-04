@@ -12,14 +12,12 @@ class UserSignupForm(UserCreationForm):
 
 
 class UserSigninForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4',
-                                                                'placeholder': 'Foydalanuvchi nomini kiriting...'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control py-4',
-                                                                    'placeholder': 'Foydalanuvchi parolini kiriting...'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4', 'placeholder': 'Foydalanuvchi nomini kiriting...'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control py-4', 'placeholder': 'Foydalanuvchi parolini kiriting...'}))
 
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'image']
+        fields = ['first_name', 'last_name', 'image', 'phone_number', 'website', 'github', 'twitter', 'instagram', 'facebook']
 
