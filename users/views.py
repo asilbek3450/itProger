@@ -9,29 +9,25 @@ from django.shortcuts import get_object_or_404
 
 # user signup and save user to database
 def user_signup(request):
+    error = ''
     if request.method == 'POST':
         form = UserSignupForm(request.POST)
         if form.is_valid():
+            form.save()
 
-            username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-            password1 = form.cleaned_data.get('password1')
-            password2 = form.cleaned_data.get('password2')
-            user = User.objects.create_user(username=username, email=email, password1=password1, password2=password2)
-
-            user.set_password(password1)
-            user.save()
-
-            if user is not None:
+            if form is not None:
                 print('user created successfully')
             else:
                 print('user not created')
 
             return redirect('login')
+        else:
+            error = "Ma'lumotlar to'g'ri kiritilmagan"
     else:
         form = UserSignupForm()
     context = {
-        'form': form
+        'form': form,
+        'error': error
     }
     return render(request, 'auth/register.html', context)
 
@@ -81,8 +77,6 @@ def edit_profile(request):
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
-            if request.FILES:
-                User.objects.filter(id=request.user.id).update(image=request.FILES['image'])
             form.save()
             print('user updated successfully', form.cleaned_data)
             return redirect('profile')

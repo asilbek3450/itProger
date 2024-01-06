@@ -1,3 +1,4 @@
+from django.utils.text import slugify
 from django.db import models
 
 
@@ -21,6 +22,13 @@ class BlogPost(models.Model):
     image = models.ImageField(upload_to='blog_images/', verbose_name='Maqola rasmi')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Yaratilgan sana')
     category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE, verbose_name='Maqola kategoriyasi')
+    slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug', blank=True)
+
+    def save(self, *args, **kwargs):
+        # Generate slug automatically from the title
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

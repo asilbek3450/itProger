@@ -8,7 +8,16 @@ from users.models import User
 class UserSignupForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'input100', 'placeholder': 'Ismingizni kiriting'}),
+            'last_name': forms.TextInput(attrs={'class': 'input100', 'placeholder': 'Familiyangizni kiriting'}),
+            'username': forms.TextInput(attrs={'class': 'input100', 'placeholder': 'Foydalanuvchi nomini kiriting'}),
+            'email': forms.EmailInput(attrs={'class': 'input100', 'placeholder': 'Emailingizni kiriting'}),
+            'password1': forms.PasswordInput(attrs={'class': 'input100', 'placeholder': 'Parolni kiriting'}),
+            'password2': forms.PasswordInput(attrs={'class': 'input100', 'placeholder': 'Parolni takrorlang'}),
+        }
 
 
 class UserSigninForm(forms.Form):
@@ -21,3 +30,6 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name', 'image', 'phone_number', 'website', 'github', 'twitter', 'instagram', 'facebook']
 
+        widgets = {
+            'image': forms.FileInput(attrs={'class': 'form-control py-1', 'placeholder': 'Rasm kiriting...'}),
+        }

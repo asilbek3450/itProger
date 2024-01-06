@@ -17,6 +17,15 @@
                 <!-- Form START -->
                 <form class="file-upload" method="POST" action="{% url 'edit_profile' %}">
                     {% csrf_token %}
+                    <!-- error -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <!-- Personal detail -->
                     <div class="row mb-5 gx-5">
                         <!-- Contact detail -->
                         <div class="col-xxl-8 mb-5 mb-xxl-0">
@@ -78,7 +87,7 @@
                                         <div class="col-md-12">
                                             <label for="imageUpload">{% if form.image.url %} {{ user_profile.image.url }} {% else %} Choose an image {% endif %}</label>
 {#                                            <input type="file" id="imageUpload" name="image" accept="media/*">#}
-                                        {{ form.image }}
+                                            {{ form.image }}
                                         </div>
                                         <!-- Content -->
                                         <p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size 300px x 300px</p>
