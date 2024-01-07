@@ -6,6 +6,7 @@ from django.db import models
 class BlogCategory(models.Model):
     name = models.CharField(max_length=128, verbose_name='Kategoriya nomi')
     description = models.TextField(verbose_name='Kategoriya haqida')
+    slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug', blank=True)
 
     def __str__(self):
         return self.name
