@@ -56,7 +56,7 @@ def categories_list(request):
 def single_category(request, slug):
     categories = BlogCategory.objects.all()
     category = get_object_or_404(BlogCategory, slug=slug)
-    blog_posts = BlogPost.objects.filter(category=category)
+    blog_posts = BlogPost.objects.filter(category=category).order_by('-created_at')
     context = {
         'categories': categories,
         'blog_posts': blog_posts,
