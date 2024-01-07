@@ -8,6 +8,12 @@ class BlogCategory(models.Model):
     description = models.TextField(verbose_name='Kategoriya haqida')
     slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug', blank=True)
 
+    def save(self, *args, **kwargs):
+        # Generate slug automatically from the name
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
