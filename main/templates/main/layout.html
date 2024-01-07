@@ -163,7 +163,17 @@
 {#            <li><a href="#" {% if request.resolver_match.url_name == 'contact' %} class="nav-link px-2 text-secondary" {% else %} class="nav-link px-2 text-white"{% endif %}>FAQs</a></li>#}
 {#            <li><a href="{% url 'about' %}" {% if request.resolver_match.url_name == 'about' %} class="nav-link px-2 text-secondary" {% else %} class="nav-link px-2 text-white"{% endif %}>About</a></li>#}
         </ul>
-
+      
+{#add button if user is admin#}
+        <div class="text-end">
+            {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+                <a href="{% url 'create_category' %}" class="btn btn-primary me-2">Kategoriya qo'shish</a>
+                <a href="{% url 'create_blog_post' %}" class="btn btn-primary me-2">Yangilik qo'shish</a>
+            {% endif %}
+            {% endif %}
+        </div>
+      
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
           <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
         </form>
@@ -179,10 +189,11 @@
               <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="User" width="32" height="32" class="rounded-circle">
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-              <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Settings</a></li>
+                
+              <li><a class="dropdown-item" href="{% url 'profile' %}">🙋‍♂️ Profil</a></li>
+              <li><a class="dropdown-item" href="{% url 'edit_profile' %}">⚙️ Sozlamalar</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">🚶‍♂️ Chiqish</a></li>
             </ul>
           </div>
         </div>

@@ -1,0 +1,28 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{% static 'blog/style_index.css' %}" rel="stylesheet">
+
+    <section class="section gray-bg" id="blog">
+
+        <div class="container">
+
+            <form method="post" enctype="multipart/form-data">
+
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
+
+        </div>
+
+
+    </section>
+
+
+{% endblock %}

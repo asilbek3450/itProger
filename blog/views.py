@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
-from blog.forms import CommentForm
+from blog.forms import CommentForm, CreateBlogForm, CreateCategoryForm, UpdateBlogForm
 from blog.models import BlogPost, BlogComment, BlogCategory
 
 
 # Create your views here.
 def index(request):
-    blog_posts = BlogPost.objects.all()
+    blog_posts = BlogPost.objects.all().order_by('-created_at')
     categories = BlogCategory.objects.all()
     context = {
         'blog_posts': blog_posts,
@@ -17,6 +19,7 @@ def index(request):
 
 def blog_detail(request, slug):
     blog_post = get_object_or_404(BlogPost, slug=slug)
+    categories = BlogCategory.objects.all()
     latest_posts = BlogPost.objects.all().order_by('-created_at')[:3]
     comments = BlogComment.objects.filter(post=blog_post)
     add_comment_form = CommentForm(request.POST)
@@ -34,15 +37,12 @@ def blog_detail(request, slug):
 
     context = {
         'blog_post': blog_post,
+        'categories': categories,
         'comments': comments,
         'add_comment_form': add_comment_form,
         'latest_posts': latest_posts,
     }
     return render(request, 'blog/detail.html', context)
-
-
-def create_blog_post(request):
-    pass
 
 
 def categories_list(request):
@@ -63,3 +63,49 @@ def single_category(request, slug):
         'category': category,
     }
     return render(request, 'blog/single_category.html', context)
+
+
+def create_blog_post(request):
+    if request.method == 'POST':
+        form = CreateBlogForm(request.POST, request.FILES)
+        if form.is_valid():
+            blog_post = form.save(commit=False)
+            blog_post.save()
+            return redirect('blog_list')
+    else:
+        form = CreateBlogForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'blog/create_blog.html', context)
+
+
+def update_blog_post(request, slug):
+    blog_post = get_object_or_404(BlogPost, slug=slug)
+    if request.method == 'POST':
+        form = UpdateBlogForm(request.POST, request.FILES, instance=blog_post)
+        if form.is_valid():
+            form.save()
+            return redirect('blog_list')
+    else:
+        form = UpdateBlogForm(instance=blog_post)
+    context = {
+        'form': form,
+    }
+    return render(request, 'blog/update_blog.html', context)
+
+
+def create_category(request):
+    if request.method == 'POST':
+        form = CreateCategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+            return redirect('blog_list')
+    else:
+        form = CreateCategoryForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'blog/create_category.html', context)
+

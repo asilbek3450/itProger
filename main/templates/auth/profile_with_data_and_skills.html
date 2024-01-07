@@ -5,12 +5,11 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
 {#    <link href="{% static 'auth/style_profil.css' %}" rel="stylesheet">#}
    <div class="container">
-         <div class="main-body">
+         <div class="main-body"><br>
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                  <li class="breadcrumb-item"><a href="{% url 'index' %}">Bosh sahifa</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Profil</li>
                </ol>
             </nav>
             <div class="row gutters-sm">

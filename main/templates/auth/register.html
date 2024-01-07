@@ -13,7 +13,7 @@
 					</span>
 				</div>
 
-				<form class="login100-form validate-form" method="POST">
+				<form class="login100-form validate-form" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
 
                     {% for field in form %}
