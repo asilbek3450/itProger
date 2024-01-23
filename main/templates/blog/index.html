@@ -36,11 +36,14 @@
                         <div class="blog-info">
                             <h5><b><a href="#">{{ blog_post.title | truncatechars:30 }}</a></b></h5>
                             <p>{{ blog_post.short_description | truncatechars:50 }}</p>
+
+
                             <div class="btn-bar">
                                 <a href="{% url 'blog_detail' slug=blog_post.slug %}" class="px-btn-arrow">
                                     <span>Read More</span>
                                     <i class="arrow"></i>
                                 </a>
+                                <img style="margin-left: 75px" src="{% static 'blog/pic/view_count.png' %}" width="20"> {{ blog_post.view_count }}
                             </div>
                         </div>
                     </div>

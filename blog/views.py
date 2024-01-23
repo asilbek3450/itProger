@@ -1,3 +1,4 @@
+from django.http import HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -23,6 +24,13 @@ def blog_detail(request, slug):
     latest_posts = BlogPost.objects.all().order_by('-created_at')[:3]
     comments = BlogComment.objects.filter(post=blog_post)
     add_comment_form = CommentForm(request.POST)
+
+    # count of views this post by users and session will be expired after one week
+    if not request.session.get('has_viewed_%s' % blog_post.id):
+        blog_post.view_count += 1
+        blog_post.save()
+        request.session['has_viewed_%s' % blog_post.id] = True
+
     if request.method == 'POST':
         if add_comment_form.is_valid():
             if not request.user.is_authenticated:
@@ -42,7 +50,7 @@ def blog_detail(request, slug):
         'add_comment_form': add_comment_form,
         'latest_posts': latest_posts,
     }
-    return render(request, 'blog/detail.html', context)
+    return render(request, 'blog/blog_detail.html', context)
 
 
 def categories_list(request):

@@ -31,6 +31,8 @@ class BlogPost(models.Model):
     category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE, verbose_name='Maqola kategoriyasi')
     slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug', blank=True)
 
+    view_count = models.IntegerField(default=0, verbose_name='Ko\'rishlar soni')
+
     def save(self, *args, **kwargs):
         # Generate slug automatically from the title
         if not self.slug:
