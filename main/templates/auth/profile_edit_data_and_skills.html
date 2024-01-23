@@ -15,7 +15,7 @@
                     <hr>
                 </div>
                 <!-- Form START -->
-                <form class="file-upload" method="POST" action="{% url 'edit_profile' %}">
+                <form class="file-upload" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <!-- error -->
                     {% if messages %}
@@ -35,22 +35,22 @@
                                     <!-- First Name -->
                                     <div class="col-md-6">
                                         <label for="firstName" class="form-label">First Name *</label>
-                                        <input type="text" class="form-control" id="firstName" placeholder="First name" name="first_name">
+                                        {{ form.first_name }}
                                     </div>
                                     <!-- Last Name -->
                                     <div class="col-md-6">
                                         <label for="lastName" class="form-label">Last Name *</label>
-                                        <input type="text" class="form-control" id="lastName" placeholder="Last name" name="last_name">
+                                        {{ form.last_name }}
                                     </div>
                                     <!-- Phone number -->
                                     <div class="col-md-6">
                                         <label for="phoneNumber" class="form-label">Phone number *</label>
-                                        <input type="text" class="form-control" id="phoneNumber" placeholder="Phone number" name="phone_number">
+                                        {{ form.phone_number }}
                                     </div>
                                     <!-- Website -->
                                     <div class="col-md-6">
                                         <label for="inputWebsite" class="form-label">Website *</label>
-                                        <input type="text" class="form-control" id="inputWebsite" placeholder="Website" name="website">
+                                        {{ form.website }}
                                     </div>
                                     <!-- Username -->
                                     <div class="col-md-6">
@@ -75,7 +75,7 @@
                                         <h4 class="mb-4 mt-0">Upload your profile photo</h4>
                                         <div class="square position-relative display-2 mb-3">
                                             {% if user_profile.image %}
-                                                <img width="200" src="{{ user_profile.image.url }}" class="img-thumbnail" alt="profile photo">
+                                                <img width="300" src="{{ user_profile.image.url }}" class="img-thumbnail" alt="profile photo">
                                             {% else %}
                                                 <img width="300" height="300" src="https://www.iprcenter.gov/image-repository/blank-profile-picture.png/@@images/image.png" class="img-thumbnail" alt="profile photo">
                                             {% endif %}
@@ -106,22 +106,22 @@
                                     <!-- Facebook -->
                                     <div class="col-md-6">
                                         <label class="form-label"><i class="fab fa-fw fa-facebook me-2 text-facebook"></i>Facebook *</label>
-                                        <input type="text" class="form-control" placeholder="Facebook" name="facebook">
+                                        {{ form.facebook }}
                                     </div>
                                     <!-- Twitter -->
                                     <div class="col-md-6">
                                         <label class="form-label"><i class="fab fa-fw fa-twitter text-twitter me-2"></i>Twitter *</label>
-                                        <input type="text" class="form-control" placeholder="Twitter" name="twitter">
+                                        {{ form.twitter }}
                                     </div>
                                     <!-- Github -->
                                     <div class="col-md-6">
                                         <label class="form-label"><i class="fab fa-fw fa-github text-github me-2"></i>GitHub *</label>
-                                        <input type="text" class="form-control" placeholder="Github" name="github">
+                                        {{ form.github }}
                                     </div>
                                     <!-- Instragram -->
                                     <div class="col-md-6">
                                         <label class="form-label"><i class="fab fa-fw fa-instagram text-instagram me-2"></i>Instagram *</label>
-                                        <input type="text" class="form-control" placeholder="Instragram" name="instagram">
+                                        {{ form.instagram }}
                                     </div>
 
                                 </div> <!-- Row END -->

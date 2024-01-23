@@ -78,8 +78,9 @@ def edit_profile(request):
         form = UserUpdateForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
             form.save()
-            print('user updated successfully', form.cleaned_data)
             return redirect('profile')
+        else:
+            messages.warning(request, 'Ma\'lumotlar to\'g\'ri kiritilmagan')
     else:
         form = UserUpdateForm(instance=user_profile)
     context = {

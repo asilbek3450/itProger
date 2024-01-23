@@ -12,7 +12,7 @@ class User(AbstractUser):
     password1 = models.CharField(max_length=50, verbose_name='Parol')
     password2 = models.CharField(max_length=50, verbose_name='Parolni takrorlang')
     image = models.ImageField(upload_to='users_images/', null=True, blank=True, verbose_name='Profil rasmi')
-    phone_number = models.CharField(max_length=12, null=True, blank=True, verbose_name='Telefon raqam')
+    phone_number = models.CharField(max_length=20, null=True, blank=True, verbose_name='Telefon raqam')
     address = models.CharField(max_length=128, null=True, blank=True, verbose_name='Manzil')
 
     website = models.URLField(max_length=128, null=True, blank=True, verbose_name='Veb-sayt')
@@ -25,5 +25,11 @@ class User(AbstractUser):
         verbose_name = 'Foydalanuvchi'
         verbose_name_plural = 'Foydalanuvchilar'
 
+    def save(self, *args, **kwargs):
+        if self.phone_number:
+            self.phone_number = self.phone_number.replace(' ', '')
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.username
+

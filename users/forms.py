@@ -11,12 +11,12 @@ class UserSignupForm(UserCreationForm):
         fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
 
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'input100', 'placeholder': 'Ismingizni kiriting'}),
-            'last_name': forms.TextInput(attrs={'class': 'input100', 'placeholder': 'Familiyangizni kiriting'}),
-            'username': forms.TextInput(attrs={'class': 'input100', 'placeholder': 'Foydalanuvchi nomini kiriting'}),
-            'email': forms.EmailInput(attrs={'class': 'input100', 'placeholder': 'Emailingizni kiriting'}),
-            'password1': forms.PasswordInput(attrs={'class': 'input100', 'placeholder': 'Parolni kiriting'}),
-            'password2': forms.PasswordInput(attrs={'class': 'input100', 'placeholder': 'Parolni takrorlang'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ismingizni kiriting'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Familiyangizni kiriting'}),
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Foydalanuvchi nomini kiriting'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Emailingizni kiriting'}),
+            'password1': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Parolni kiriting'}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Parolni takrorlang'}),
         }
 
 
@@ -31,5 +31,14 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'image', 'phone_number', 'website', 'github', 'twitter', 'instagram', 'facebook']
 
         widgets = {
-            'image': forms.FileInput(attrs={'class': 'form-control py-1', 'placeholder': 'Rasm kiriting...'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ismingizni kiriting...'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Familiyangizni kiriting...'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Telefon raqamingizni kiriting...'}),
+            'website': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Veb-saytingizni kiriting...'}),
+            'github': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Githubingizni kiriting...'}),
+            'twitter': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Twitteringizni kiriting...'}),
+            'instagram': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Instagramingizni kiriting...'}),
+            'facebook': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Facebookingizni kiriting...'}),
+
         }
