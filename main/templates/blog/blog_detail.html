@@ -27,7 +27,7 @@
                             </li>
                         </ul>
                         <p class="lead">{{ blog_post.short_description}}</p>
-                        <p>{{ blog_post.description}}</p>
+                        <p>{{ blog_post.description | linebreaks }}</p>
                         <ul class="list-inline share-buttons">
                             <li class="list-inline-item">Share Post:</li>
                             <li class="list-inline-item">
